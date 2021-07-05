@@ -1,13 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
 *,
 ::before,
 ::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+label {
+  margin-bottom: 0;
+}
+
+:root {
+  --select-border: #777;
+  --select-focus: blue;
+  --select-arrow: var(--select-border);
+  --input-border: #8b8a8b;
+  --input-focus-h: 245;
+  --input-focus-s: 100%;
+  --input-focus-l: 42%;
 }
 
 body {
   text-align: center;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #387d9cc9;
+  color: white;
+  .title {
+    font-weight: bold;
+    font-size: 40px;
+  }
 }
 
 .dropdowns {
@@ -15,22 +44,102 @@ body {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  border: 2px solid black;
   margin: 5px;
-  // height: 100px;
+  height: 160px;
+  .or {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  select {
+    // A reset of styles, including removing the default dropdown arrow
+    appearance: none;
+    // Additional resets for further consistency
+    background-color: transparent;
+    border: none;
+    padding: 0 1em 0 0;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    outline: none;
+    grid-area: select;
+  }
+  .select {
+    width: 100%;
+    min-width: 15ch;
+    max-width: 30ch;
+    border: 1px solid var(--select-border);
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1.1;
+    background-color: #fff;
+    background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+    display: grid;
+    grid-template-areas: "select";
+    align-items: center;
+    &::after {
+      content: "";
+      width: 0.8em;
+      height: 0.5em;
+      background-color: var(--select-arrow);
+      clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+      grid-area: select;
+      justify-self: end;
+    }
+  }
   .states-districts {
-    height: 100px;
+    // height: 100px;
+    margin: 10px 0px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     // border: 2px solid black;
+    .states {
+      margin-bottom: 10px;
+    }
+    .districts {
+      margin-bottom: 10px;
+    }
   }
   .pincode {
     height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
+    form {
+      button {
+        display: inline-block;
+        padding: 8px 9px;
+        border: 0.1em solid #ffffff;
+        margin: 7px 0px;
+        border-radius: 10px;
+        background-color: #8b8a8b;
+        text-decoration: none;
+        cursor: pointer;
+        font-size: 16px;
+        color: white;
+        text-align: center;
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+
+        .input {
+          font-size: 16px;
+          font-family: inherit;
+          padding: 0.25em 0.5em;
+          background-color: #fff;
+          border: 2px solid var(--input-border);
+          border-radius: 4px;
+        }
+      }
+    }
   }
 }
 
@@ -46,9 +155,10 @@ body {
   }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 895px) {
   .dropdowns {
     flex-direction: column;
     justify-content: space-around;
+    height: 420px;
   }
 }

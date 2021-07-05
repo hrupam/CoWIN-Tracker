@@ -100,7 +100,7 @@ export class Main extends Component {
               selectedDistrict={selectedDistrict}
             />
           </div>
-          <span>OR</span>
+          <span className="or">OR</span>
           <div className="pincode">
             <Pincode
               onPincodeChange={this.handlePincodeChange}

@@ -1,11 +1,19 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 
 const Pincode = ({ pincode, onPincodeChange, onPincodeSubmit }) => {
   return (
     <form onSubmit={onPincodeSubmit}>
-      <div className="input">
-        <label>Pincode</label>
-        <input type="text" value={pincode} onChange={onPincodeChange} />
+      <div>
+        <label for="text-input">Pincode</label>
+        <input
+          type="text"
+          className="input"
+          id="text-input"
+          placeholder="Enter your PIN"
+          value={pincode}
+          onChange={onPincodeChange}
+        />
       </div>
       <button type="submit">Get Centers</button>
     </form>

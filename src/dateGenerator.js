@@ -1,10 +1,10 @@
-const date = new Date();
+const d = new Date();
 
-const fdate =
-  ("0" + date.getDate()).slice(-2) +
+const date =
+  ("0" + d.getDate()).slice(-2) +
   "-" +
-  ("0" + (date.getMonth() + 1)).slice(-2) +
+  ("0" + (d.getMonth() + 1)).slice(-2) +
   "-" +
-  date.getFullYear();
+  d.getFullYear();
 
-export default fdate;
+export default date;

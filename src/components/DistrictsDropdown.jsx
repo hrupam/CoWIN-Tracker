@@ -8,14 +8,16 @@ const DistrictsDropdown = ({
   return districts.length ? (
     <div className="districts">
       <label>District</label>
-      <select value={selectedDistrict} onChange={onDistrictChange}>
-        <option>Select District</option>
-        {districts.map((district) => (
-          <option key={district.district_id} value={district.district_id}>
-            {district.district_name}
-          </option>
-        ))}
-      </select>
+      <div className="select">
+        <select value={selectedDistrict} onChange={onDistrictChange}>
+          <option>Select District</option>
+          {districts.map((district) => (
+            <option key={district.district_id} value={district.district_id}>
+              {district.district_name}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   ) : null;
 };
