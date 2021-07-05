@@ -32,7 +32,7 @@ export class Main extends Component {
   }
 
   handleStateChange = (event) => {
-    this.setState({ selectedState: event.target.value }, () => {
+    this.setState({ selectedState: event.target.value, pincode: "" }, () => {
       axios
         .get(
           `https://cdn-api.co-vin.in/api/v2/admin/location/districts/${this.state.selectedState}`
@@ -47,7 +47,7 @@ export class Main extends Component {
   };
 
   handleDistrictChange = (event) => {
-    this.setState({ selectedDistrict: event.target.value }, () => {
+    this.setState({ selectedDistrict: event.target.value, pincode: "" }, () => {
       axios
         .get(
           `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${this.state.selectedDistrict}&date=${date}`
@@ -65,6 +65,7 @@ export class Main extends Component {
 
   handlePincodeSubmit = (event) => {
     event.preventDefault();
+    this.setState({ selectedState: -1, selectedDistrict: -1 });
     axios
       .get(
         `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${this.state.pincode}&date=${date}`
@@ -83,7 +84,6 @@ export class Main extends Component {
       selectedDistrict,
       pincode,
       centers,
-      error,
     } = this.state;
     return (
       <div>
@@ -100,6 +100,7 @@ export class Main extends Component {
               selectedDistrict={selectedDistrict}
             />
           </div>
+          <span>OR</span>
           <div className="pincode">
             <Pincode
               onPincodeChange={this.handlePincodeChange}
@@ -109,7 +110,6 @@ export class Main extends Component {
           </div>
         </div>
         <CenterList centers={centers} />
-        {/* {error ?? <div className="error">Wrong</div>} */}
       </div>
     );
   }

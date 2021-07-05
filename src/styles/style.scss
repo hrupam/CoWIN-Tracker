@@ -1,3 +1,27 @@
+.dropdowns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  border: 2px solid black;
+  margin: 5px;
+  // height: 100px;
+  .states-districts {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    // border: 2px solid black;
+  }
+  .pincode {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 .centers-container {
   display: flex;
   flex-direction: column;
@@ -7,5 +31,12 @@
     margin: 5px;
     display: flex;
     flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .dropdowns {
+    flex-direction: column;
+    justify-content: space-around;
   }
 }
