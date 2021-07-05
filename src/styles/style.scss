@@ -1,0 +1,11 @@
+.centers-container {
+  display: flex;
+  flex-direction: column;
+
+  .center {
+    border: 2px solid black;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+  }
+}
