@@ -2,7 +2,8 @@ import axios from "axios";
 import React, { Component } from "react";
 import StatesDropdown from "./StatesDropdown";
 import DistrictsDropdown from "./DistrictsDropdown";
-import Center from "./Center";
+import CenterList from "./CenterList";
+import Pincode from "./Pincode";
 import date from "../dateGenerator";
 import "../styles/style.scss";
 
@@ -15,17 +16,18 @@ export class Main extends Component {
       selectedState: -1,
       districts: [],
       selectedDistrict: -1,
+      pincode: "",
       centers: [],
+      error: "",
     };
   }
 
   componentDidMount() {
     axios
       .get("https://cdn-api.co-vin.in/api/v2/admin/location/states")
-      .then((response) =>
-        this.setState({ states: response.data.states }, () =>
-          console.log("STATES", this.state.states)
-        )
+      .then((response) => this.setState({ states: response.data.states }))
+      .catch((error) =>
+        this.setState({ error: `Error retrieving data,message ${error}` })
       );
   }
 
@@ -36,9 +38,10 @@ export class Main extends Component {
           `https://cdn-api.co-vin.in/api/v2/admin/location/districts/${this.state.selectedState}`
         )
         .then((response) =>
-          this.setState({ districts: response.data.districts }, () =>
-            console.log("DISTRICTS", this.state.districts)
-          )
+          this.setState({ districts: response.data.districts })
+        )
+        .catch((error) =>
+          this.setState({ error: `Error retrieving data,message ${error}` })
         );
     });
   };
@@ -49,50 +52,64 @@ export class Main extends Component {
         .get(
           `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${this.state.selectedDistrict}&date=${date}`
         )
-        .then((response) =>
-          this.setState({ centers: response.data.sessions }, () =>
-            console.log("CENTERS", this.state.centers)
-          )
+        .then((response) => this.setState({ centers: response.data.sessions }))
+        .catch((error) =>
+          this.setState({ error: `Error retrieving data,message ${error}` })
         );
     });
   };
 
+  handlePincodeChange = (event) => {
+    this.setState({ pincode: event.target.value });
+  };
+
+  handlePincodeSubmit = (event) => {
+    event.preventDefault();
+    axios
+      .get(
+        `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${this.state.pincode}&date=${date}`
+      )
+      .then((response) => this.setState({ centers: response.data.sessions }))
+      .catch((error) =>
+        this.setState({ error: `Error retrieving data,message ${error}` })
+      );
+  };
+
   render() {
-    const { states, selectedState, districts, selectedDistrict, centers } =
-      this.state;
+    const {
+      states,
+      selectedState,
+      districts,
+      selectedDistrict,
+      pincode,
+      centers,
+      error,
+    } = this.state;
     return (
       <div>
-        <StatesDropdown
-          onStateChange={this.handleStateChange}
-          states={states}
-          selectedState={selectedState}
-        />
-
-        {districts.length ? (
-          <DistrictsDropdown
-            onDistrictChange={this.handleDistrictChange}
-            districts={districts}
-            selectedDistrict={selectedDistrict}
-          />
-        ) : null}
-
-        {centers.length ? (
-          <div className="centers-container">
-            {centers.map((center, index) => (
-              <Center
-                key={index + 1}
-                name={center.name}
-                address={center.address}
-                blockname={center.block_name}
-                pin={center.pincode}
-                from_time={center.from}
-                to_time={center.to}
-                dose1_capacity={center.available_capacity_dose1}
-                dose2_capacity={center.available_capacity_dose2}
-              />
-            ))}
+        <div className="dropdowns">
+          <div className="states-districts">
+            <StatesDropdown
+              onStateChange={this.handleStateChange}
+              states={states}
+              selectedState={selectedState}
+            />
+            <DistrictsDropdown
+              onDistrictChange={this.handleDistrictChange}
+              districts={districts}
+              selectedDistrict={selectedDistrict}
+            />
           </div>
-        ) : null}
+          <div className="pincode">
+            <Pincode
+              onPincodeChange={this.handlePincodeChange}
+              pincode={pincode}
+              onPincodeSubmit={this.handlePincodeSubmit}
+            />
+          </div>
+        </div>
+        <CenterList centers={centers} />
+        {/* {error ?? <div className="error">Wrong</div>} */}
       </div>
     );
   }

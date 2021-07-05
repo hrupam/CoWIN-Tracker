@@ -5,8 +5,8 @@ const DistrictsDropdown = ({
   districts,
   selectedDistrict,
 }) => {
-  return (
-    <div>
+  return districts.length ? (
+    <div className="districts">
       <select value={selectedDistrict} onChange={onDistrictChange}>
         <option>Select District</option>
         {districts.map((district) => (
@@ -16,7 +16,7 @@ const DistrictsDropdown = ({
         ))}
       </select>
     </div>
-  );
+  ) : null;
 };
 
 export default DistrictsDropdown;

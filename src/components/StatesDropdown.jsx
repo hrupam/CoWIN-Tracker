@@ -2,7 +2,7 @@ import React from "react";
 
 const StatesDropdown = ({ onStateChange, states, selectedState }) => {
   return (
-    <div>
+    <div className="states">
       <select value={selectedState} onChange={onStateChange}>
         <option>Select State</option>
         {states.map((state) => (
