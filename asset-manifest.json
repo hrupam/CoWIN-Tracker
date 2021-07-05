@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/CoWIN-Tracker/static/css/main.35729c45.chunk.css",
+    "main.js": "/CoWIN-Tracker/static/js/main.2f2cba7c.chunk.js",
+    "main.js.map": "/CoWIN-Tracker/static/js/main.2f2cba7c.chunk.js.map",
+    "runtime-main.js": "/CoWIN-Tracker/static/js/runtime-main.d4a9c22c.js",
+    "runtime-main.js.map": "/CoWIN-Tracker/static/js/runtime-main.d4a9c22c.js.map",
+    "static/js/2.871eff00.chunk.js": "/CoWIN-Tracker/static/js/2.871eff00.chunk.js",
+    "static/js/2.871eff00.chunk.js.map": "/CoWIN-Tracker/static/js/2.871eff00.chunk.js.map",
+    "static/js/3.03906ac8.chunk.js": "/CoWIN-Tracker/static/js/3.03906ac8.chunk.js",
+    "static/js/3.03906ac8.chunk.js.map": "/CoWIN-Tracker/static/js/3.03906ac8.chunk.js.map",
+    "index.html": "/CoWIN-Tracker/index.html",
+    "static/css/main.35729c45.chunk.css.map": "/CoWIN-Tracker/static/css/main.35729c45.chunk.css.map",
+    "static/js/2.871eff00.chunk.js.LICENSE.txt": "/CoWIN-Tracker/static/js/2.871eff00.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d4a9c22c.js",
+    "static/js/2.871eff00.chunk.js",
+    "static/css/main.35729c45.chunk.css",
+    "static/js/main.2f2cba7c.chunk.js"
+  ]
+}
