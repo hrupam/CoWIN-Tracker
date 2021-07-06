@@ -8,7 +8,7 @@ function App() {
         <span style={{ fontSize: "18px" }}>Made with ❤️ by Rupam Hari</span>
         <span className="title">CoWIN Tracker</span>
         <span className="date">
-          Current Date: <span style={{ fontWeight: "bold" }}>{date}</span>{" "}
+          Date: <span style={{ fontWeight: "bold" }}>{date}</span>{" "}
         </span>
       </div>
       <Main />

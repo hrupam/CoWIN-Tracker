@@ -18,7 +18,14 @@ const Center = ({
   return (
     <div className="card">
       {/* <div className="card-image"></div> */}
-      <div className="card-text">
+      <div
+        className={
+          "card-text " +
+          (parseInt(dose1_capacity) > 0 || parseInt(dose2_capacity) > 0
+            ? "available"
+            : "unavailable")
+        }
+      >
         <div
           style={{
             fontSize: "18px",

@@ -11,14 +11,11 @@
   grid-template-columns: 370px;
   grid-template-rows: 450px 100px;
   grid-template-areas: "text" "stats";
-
   border-radius: 18px;
-  background: white;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
   font-family: roboto;
   text-align: center;
   transition: 0.5s ease;
-
   margin: 30px;
 }
 .card-image {
@@ -39,11 +36,11 @@
 }
 .card-text {
   grid-area: text;
-  margin: 25px;
+  padding: 20px;
 }
 .card-text .date {
   color: rgb(255, 7, 110);
-  font-size: 15px;
+  font-size: 18px;
 }
 .card-text p {
   color: grey;
@@ -77,6 +74,13 @@
 .card:hover {
   transform: scale(1.08);
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+}
+
+.available {
+  background-color: #2ec76f70;
+}
+.unavailable {
+  background-color: #e6141440;
 }
 
 @media only screen and (max-width: 410px) {

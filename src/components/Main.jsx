@@ -90,7 +90,7 @@ export class Main extends Component {
       errorMsg,
     } = this.state;
     return (
-      <div>
+      <div style={{ backgroundColor: "#cad5e280" }}>
         <div className="dropdowns">
           <div className="states-districts">
             <StatesDropdown
