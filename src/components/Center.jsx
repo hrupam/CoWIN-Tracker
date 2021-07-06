@@ -16,16 +16,14 @@ const Center = ({
   slots,
 }) => {
   return (
-    <div className="card">
-      {/* <div className="card-image"></div> */}
-      <div
-        className={
-          "card-text " +
-          (parseInt(dose1_capacity) > 0 || parseInt(dose2_capacity) > 0
-            ? "available"
-            : "unavailable")
-        }
-      >
+    <div
+      className={`card ${
+        parseInt(dose1_capacity) > 0 || parseInt(dose2_capacity) > 0
+          ? `available`
+          : `unavailable`
+      }`}
+    >
+      <div className="card-text">
         <div
           style={{
             fontSize: "18px",
