@@ -25,9 +25,11 @@ export class Main extends Component {
   componentDidMount() {
     axios
       .get("https://cdn-api.co-vin.in/api/v2/admin/location/states")
-      .then((response) => this.setState({ states: response.data.states }))
+      .then((response) =>
+        this.setState({ states: response.data.states, error: "" })
+      )
       .catch((error) =>
-        this.setState({ error: `Error retrieving data,message ${error}` })
+        this.setState({ error: `Error retrieving data, message ${error}` })
       );
   }
 
@@ -52,9 +54,11 @@ export class Main extends Component {
         .get(
           `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${this.state.selectedDistrict}&date=${date}`
         )
-        .then((response) => this.setState({ centers: response.data.sessions }))
+        .then((response) =>
+          this.setState({ centers: response.data.sessions, error: "" })
+        )
         .catch((error) =>
-          this.setState({ error: `Error retrieving data,message ${error}` })
+          this.setState({ error: `Error retrieving data, message ${error}` })
         );
     });
   };
@@ -70,9 +74,11 @@ export class Main extends Component {
       .get(
         `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${this.state.pincode}&date=${date}`
       )
-      .then((response) => this.setState({ centers: response.data.sessions }))
+      .then((response) =>
+        this.setState({ centers: response.data.sessions, error: "" })
+      )
       .catch((error) =>
-        this.setState({ error: `Error retrieving data,message ${error}` })
+        this.setState({ error: `Error retrieving data, message ${error}` })
       );
   };
 
@@ -84,6 +90,7 @@ export class Main extends Component {
       selectedDistrict,
       pincode,
       centers,
+      error,
     } = this.state;
     return (
       <div>
@@ -110,6 +117,7 @@ export class Main extends Component {
           </div>
         </div>
         <CenterList centers={centers} />
+        {error ?? <div className="error-message">{error}</div>}
       </div>
     );
   }

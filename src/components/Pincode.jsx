@@ -4,7 +4,7 @@ const Pincode = ({ pincode, onPincodeChange, onPincodeSubmit }) => {
   return (
     <form onSubmit={onPincodeSubmit}>
       <div>
-        <label for="text-input">Pincode</label>
+        <label htmlFor="text-input">Pincode</label>
         <input
           type="text"
           className="input"
