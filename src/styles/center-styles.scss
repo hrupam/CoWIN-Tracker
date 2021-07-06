@@ -78,3 +78,10 @@
   transform: scale(1.08);
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
 }
+
+@media only screen and (max-width: 410px) {
+  .card {
+    grid-template-columns: 320px;
+    grid-template-rows: 450px 100px;
+  }
+}
