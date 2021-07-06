@@ -18,7 +18,7 @@ export class Main extends Component {
       selectedDistrict: -1,
       pincode: "",
       centers: [],
-      error: "",
+      errorMsg: "",
     };
   }
 
@@ -26,11 +26,9 @@ export class Main extends Component {
     axios
       .get("https://cdn-api.co-vin.in/api/v2/admin/location/states")
       .then((response) =>
-        this.setState({ states: response.data.states, error: "" })
+        this.setState({ states: response.data.states, errorMsg: "" })
       )
-      .catch((error) =>
-        this.setState({ error: `Error retrieving data, message ${error}` })
-      );
+      .catch((error) => this.setState({ errorMsg: `${error}` }));
   }
 
   handleStateChange = (event) => {
@@ -42,9 +40,7 @@ export class Main extends Component {
         .then((response) =>
           this.setState({ districts: response.data.districts })
         )
-        .catch((error) =>
-          this.setState({ error: `Error retrieving data,message ${error}` })
-        );
+        .catch((error) => this.setState({ errorMsg: `${error}` }));
     });
   };
 
@@ -55,11 +51,9 @@ export class Main extends Component {
           `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${this.state.selectedDistrict}&date=${date}`
         )
         .then((response) =>
-          this.setState({ centers: response.data.sessions, error: "" })
+          this.setState({ centers: response.data.sessions, errorMsg: "" })
         )
-        .catch((error) =>
-          this.setState({ error: `Error retrieving data, message ${error}` })
-        );
+        .catch((error) => this.setState({ errorMsg: `${error}` }));
     });
   };
 
@@ -75,10 +69,13 @@ export class Main extends Component {
         `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${this.state.pincode}&date=${date}`
       )
       .then((response) =>
-        this.setState({ centers: response.data.sessions, error: "" })
+        this.setState({ centers: response.data.sessions, errorMsg: "" })
       )
       .catch((error) =>
-        this.setState({ error: `Error retrieving data, message ${error}` })
+        this.setState({
+          errorMsg: `${error}`,
+          centers: [],
+        })
       );
   };
 
@@ -90,7 +87,7 @@ export class Main extends Component {
       selectedDistrict,
       pincode,
       centers,
-      error,
+      errorMsg,
     } = this.state;
     return (
       <div>
@@ -117,7 +114,12 @@ export class Main extends Component {
           </div>
         </div>
         <CenterList centers={centers} />
-        {error ?? <div className="error-message">{error}</div>}
+        {errorMsg ? (
+          <div className="error-message">
+            <span style={{ display: "block" }}>Error retrieving data</span>
+            {errorMsg}
+          </div>
+        ) : null}
       </div>
     );
   }

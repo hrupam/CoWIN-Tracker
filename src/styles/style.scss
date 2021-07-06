@@ -117,7 +117,7 @@ body {
     form {
       button {
         display: inline-block;
-        padding: 8px 9px;
+        padding: 5px 9px;
         border: 0.1em solid #ffffff;
         margin: 7px 0px;
         border-radius: 10px;
@@ -144,6 +144,12 @@ body {
       }
     }
   }
+}
+
+.error-message {
+  color: #d82e2f;
+  font-size: 1rem;
+  margin-top: 10px;
 }
 
 @media only screen and (max-width: 895px) {
