@@ -57,10 +57,6 @@ export class Main extends Component {
     });
   };
 
-  handlePincodeChange = (event) => {
-    this.setState({ pincode: event.target.value });
-  };
-
   handlePincodeSubmit = (event) => {
     event.preventDefault();
     this.setState({ selectedState: -1, selectedDistrict: -1 });
@@ -107,7 +103,9 @@ export class Main extends Component {
           <span className="or">OR</span>
           <div className="pincode">
             <Pincode
-              onPincodeChange={this.handlePincodeChange}
+              onPincodeChange={(event) =>
+                this.setState({ pincode: event.target.value })
+              }
               pincode={pincode}
               onPincodeSubmit={this.handlePincodeSubmit}
             />
