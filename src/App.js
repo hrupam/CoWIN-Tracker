@@ -1,4 +1,5 @@
 import Main from "./components/Main";
+// import HooksMain from "./components/HooksMain";
 import date from "./dateGenerator";
 
 function App() {
