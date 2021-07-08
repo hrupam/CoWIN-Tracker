@@ -3,9 +3,12 @@ import date from "./dateGenerator";
 
 function App() {
   return (
-    <div className="App">
+    <div
+      style={{ backgroundColor: "#cad5e280", minHeight: "100vh" }}
+      className="App"
+    >
       <div className="header">
-        <span style={{ fontSize: "18px" }}>Made with ❤️ by Rupam Hari</span>
+        <span style={{ fontSize: "17px" }}>Made with ❤️ by Rupam Hari</span>
         <span className="title">CoWIN Tracker</span>
         <span className="date">
           Date: <span style={{ fontWeight: "bold" }}>{date}</span>{" "}
