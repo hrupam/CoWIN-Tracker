@@ -1,10 +1,13 @@
-const d = new Date();
+const dateFormatter = (date) => {
+  return (
+    ("0" + date.getDate()).slice(-2) +
+    "-" +
+    ("0" + (date.getMonth() + 1)).slice(-2) +
+    "-" +
+    date.getFullYear()
+  );
+};
 
-const date =
-  ("0" + d.getDate()).slice(-2) +
-  "-" +
-  ("0" + (d.getMonth() + 1)).slice(-2) +
-  "-" +
-  d.getFullYear();
+export default dateFormatter;
 
-export default date;
+export const date = dateFormatter(new Date());

@@ -4,10 +4,10 @@ import StatesDropdown from "./StatesDropdown";
 import DistrictsDropdown from "./DistrictsDropdown";
 import CenterList from "./CenterList";
 import Pincode from "./Pincode";
-import date from "../dateGenerator";
+import { date } from "../dateGenerator";
 import "../styles/style.scss";
 
-export class Main extends Component {
+class Main extends Component {
   constructor(props) {
     super(props);
 
