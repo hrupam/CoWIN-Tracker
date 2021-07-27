@@ -1,13 +1,13 @@
-const dateFormatter = (date) => {
-  return (
-    ("0" + date.getDate()).slice(-2) +
-    "-" +
-    ("0" + (date.getMonth() + 1)).slice(-2) +
-    "-" +
-    date.getFullYear()
-  );
+export const dateFormatter = (date) => {
+  const day = ("0" + date.getDate()).slice(-2);
+  const month = ("0" + (date.getMonth() + 1)).slice(-2);
+  const year = date.getFullYear();
+  return year + "-" + month + "-" + day;
 };
 
-export default dateFormatter;
+export const dateReverser = (date) => {
+  const [year, month, day] = date.split("-");
+  return day + "-" + month + "-" + year;
+};
 
-export const date = dateFormatter(new Date());
+// export const date = dateFormatter(new Date());
