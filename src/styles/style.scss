@@ -145,6 +145,18 @@ body {
   }
 }
 
+.date-picker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
+
+  #date-input {
+    padding: 5px;
+  }
+}
+
 .error-message {
   color: #d82e2f;
   font-size: 1rem;

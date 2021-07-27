@@ -1,6 +1,6 @@
-import Main from "./components/Main";
-// import HooksMain from "./components/HooksMain";
-import { date } from "./dateGenerator";
+// import Main from "./components/Main";
+import Header from "./components/Header";
+import HooksMain from "./components/HooksMain";
 
 function App() {
   return (
@@ -8,14 +8,8 @@ function App() {
       style={{ backgroundColor: "#cad5e280", minHeight: "100vh" }}
       className="App"
     >
-      <div className="header">
-        <span style={{ fontSize: "17px" }}>Made with ❤️ by Rupam Hari</span>
-        <span className="title">CoWIN Tracker</span>
-        <span className="date">
-          Date: <span style={{ fontWeight: "bold" }}>{date}</span>{" "}
-        </span>
-      </div>
-      <Main />
+      <Header />
+      <HooksMain />
     </div>
   );
 }
