@@ -48,6 +48,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         centers: action.payload,
+        errorMsg: "",
       };
     case "FETCH_CENTERS_FAILURE":
       return {
@@ -64,10 +65,9 @@ const reducer = (state, action) => {
       };
     case "FETCH_CENTERS_WITH_PINCODE_FAILURE":
       return {
-        states: [],
-        districts: [],
+        ...state,
         centers: [],
-        errorMsg: "",
+        errorMsg: "Error retrieving data",
       };
     case "DATE_CHANGE": {
       return {
