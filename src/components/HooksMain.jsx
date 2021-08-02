@@ -7,6 +7,7 @@ import Pincode from "./Pincode";
 import { dateFormatter, dateReverser } from "../dateGenerator";
 import "../styles/style.scss";
 import DatePicker from "./DatePicker";
+import Loader from "./Loader";
 
 const initialState = {
   states: [],
@@ -67,6 +68,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         centers: [],
+        districts: [],
         errorMsg: "Error retrieving data",
       };
     case "DATE_CHANGE": {
@@ -85,6 +87,7 @@ function HooksMain() {
   const [selectedDistrict, setSelectedDistrict] = useState(-1);
   const [pincode, setPincode] = useState("");
   const [selectedDate, setSelectedDate] = useState(dateFormatter(new Date()));
+  const [loading, setLoading] = useState(true);
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -93,66 +96,88 @@ function HooksMain() {
     axios
       .get("https://cdn-api.co-vin.in/api/v2/admin/location/states")
       .then((response) => {
+        setLoading(false);
         dispatch({
           type: "FETCH_STATES_SUCCESS",
           payload: response.data.states,
         });
       })
-      .catch((err) => dispatch({ type: "FETCH_STATES_FAILURE" }));
+      .catch((err) => {
+        setLoading(false);
+        dispatch({ type: "FETCH_STATES_FAILURE" });
+      });
   }, []);
 
   //   ON STATE CHANGE
   useEffect(() => {
-    axios
-      .get(
-        `https://cdn-api.co-vin.in/api/v2/admin/location/districts/${selectedState}`
-      )
-      .then((response) =>
-        dispatch({
-          type: "FETCH_DISTRICTS_SUCCESS",
-          payload: response.data.districts,
+    setLoading(true);
+    selectedState !== -1 &&
+      axios
+        .get(
+          `https://cdn-api.co-vin.in/api/v2/admin/location/districts/${selectedState}`
+        )
+        .then((response) => {
+          setLoading(false);
+          dispatch({
+            type: "FETCH_DISTRICTS_SUCCESS",
+            payload: response.data.districts,
+          });
         })
-      )
-      .catch((err) => dispatch({ type: "FETCH_DISTRICTS_FAILURE" }));
+        .catch((err) => {
+          setLoading(false);
+          dispatch({ type: "FETCH_DISTRICTS_FAILURE" });
+        });
   }, [selectedState]);
 
   //   ON DISTRICT CHANGE
   useEffect(() => {
     const date = dateReverser(selectedDate);
+    setLoading(true);
     selectedDistrict !== -1 &&
       axios
         .get(
           `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${selectedDistrict}&date=${date}`
         )
         .then((response) => {
+          setLoading(false);
           dispatch({
             type: "FETCH_CENTERS_SUCCESS",
             payload: response.data.sessions,
           });
         })
-        .catch((err) => dispatch({ type: "FETCH_CENTERS_FAILURE" }));
+        .catch((err) => {
+          setLoading(false);
+          dispatch({ type: "FETCH_CENTERS_FAILURE" });
+        });
   }, [selectedDistrict, selectedDate]);
 
   const handlePincodeSubmit = (event) => {
     event.preventDefault();
     setSelectedState(-1);
     setSelectedDistrict(-1);
+    setLoading(true);
     const date = dateReverser(selectedDate);
     axios
       .get(
         `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${pincode}&date=${date}`
       )
       .then((response) => {
+        setLoading(false);
         dispatch({
           type: "FETCH_CENTERS_WITH_PINCODE_SUCCESS",
           payload: response.data.sessions,
         });
       })
-      .catch((err) => dispatch({ type: "FETCH_CENTERS_WITH_PINCODE_FAILURE" }));
+      .catch((err) => {
+        setLoading(false);
+        dispatch({ type: "FETCH_CENTERS_WITH_PINCODE_FAILURE" });
+      });
   };
 
   return (
     <div>
+      <Loader loading={loading} />
+
       <DatePicker
         date={selectedDate}
         handleOnChange={(e) => {
@@ -192,6 +217,7 @@ function HooksMain() {
       </div>
 
       <CenterList centers={state.centers} />
+
       {state.errorMsg ? (
         <div className="error-message">{state.errorMsg}</div>
       ) : null}
