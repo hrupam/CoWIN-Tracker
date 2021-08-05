@@ -1,6 +1,5 @@
-// import Main from "./components/Main";
-import Header from "./components/Header";
-import HooksMain from "./components/HooksMain";
+import Header from "./components/reusableComponents/Header";
+import MainComponent from "./components/MainComponent";
 
 function App() {
   return (
@@ -9,7 +8,7 @@ function App() {
       className="App"
     >
       <Header />
-      <HooksMain />
+      <MainComponent />
     </div>
   );
 }

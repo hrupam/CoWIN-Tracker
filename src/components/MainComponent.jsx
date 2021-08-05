@@ -1,13 +1,13 @@
-import axios from "axios";
 import React, { useState, useEffect, useReducer } from "react";
 import StatesDropdown from "./StatesDropdown";
 import DistrictsDropdown from "./DistrictsDropdown";
 import CenterList from "./CenterList";
 import Pincode from "./Pincode";
-import { dateFormatter, dateReverser } from "../dateGenerator";
+import { dateFormatter, dateReverser } from "../utility/dateGenerator";
 import "../styles/style.scss";
 import DatePicker from "./DatePicker";
-import Loader from "./Loader";
+import Loader from "./reusableComponents/Loader";
+import CowinApi from "../api/CowinApi";
 
 const initialState = {
   states: [],
@@ -82,7 +82,7 @@ const reducer = (state, action) => {
   }
 };
 
-function HooksMain() {
+const MainComponent = () => {
   const [selectedState, setSelectedState] = useState(-1);
   const [selectedDistrict, setSelectedDistrict] = useState(-1);
   const [pincode, setPincode] = useState("");
@@ -93,8 +93,7 @@ function HooksMain() {
 
   //   ON FIRST RENDER
   useEffect(() => {
-    axios
-      .get("https://cdn-api.co-vin.in/api/v2/admin/location/states")
+    CowinApi.getStates()
       .then((response) => {
         setLoading(false);
         dispatch({
@@ -112,10 +111,7 @@ function HooksMain() {
   useEffect(() => {
     setLoading(true);
     selectedState !== -1 &&
-      axios
-        .get(
-          `https://cdn-api.co-vin.in/api/v2/admin/location/districts/${selectedState}`
-        )
+      CowinApi.getDistricts(selectedState)
         .then((response) => {
           setLoading(false);
           dispatch({
@@ -129,15 +125,12 @@ function HooksMain() {
         });
   }, [selectedState]);
 
-  //   ON DISTRICT CHANGE
+  //   ON DISTRICT CHANGE, DATE CHANGE
   useEffect(() => {
     const date = dateReverser(selectedDate);
     setLoading(true);
     selectedDistrict !== -1 &&
-      axios
-        .get(
-          `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${selectedDistrict}&date=${date}`
-        )
+      CowinApi.getCenters(selectedDistrict, date)
         .then((response) => {
           setLoading(false);
           dispatch({
@@ -157,10 +150,7 @@ function HooksMain() {
     setSelectedDistrict(-1);
     setLoading(true);
     const date = dateReverser(selectedDate);
-    axios
-      .get(
-        `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${pincode}&date=${date}`
-      )
+    CowinApi.getCentersByPincode(pincode, date)
       .then((response) => {
         setLoading(false);
         dispatch({
@@ -182,7 +172,6 @@ function HooksMain() {
         date={selectedDate}
         handleOnChange={(e) => {
           dispatch({ type: "DATE_CHANGE" });
-          setPincode("");
           setSelectedDate(e.target.value);
         }}
       />
@@ -223,6 +212,6 @@ function HooksMain() {
       ) : null}
     </div>
   );
-}
+};
 
-export default HooksMain;
+export default MainComponent;

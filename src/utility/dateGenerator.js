@@ -9,5 +9,3 @@ export const dateReverser = (date) => {
   const [year, month, day] = date.split("-");
   return day + "-" + month + "-" + year;
 };
-
-// export const date = dateFormatter(new Date());
