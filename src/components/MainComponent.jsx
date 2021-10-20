@@ -128,7 +128,7 @@ const MainComponent = () => {
   //   ON DISTRICT CHANGE, DATE CHANGE
   useEffect(() => {
     const date = dateReverser(selectedDate);
-    setLoading(true);
+    selectedDistrict !== -1 && setLoading(true);
     selectedDistrict !== -1 &&
       CowinApi.getCenters(selectedDistrict, date)
         .then((response) => {
