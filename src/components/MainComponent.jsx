@@ -3,90 +3,19 @@ import StatesDropdown from "./StatesDropdown";
 import DistrictsDropdown from "./DistrictsDropdown";
 import CenterList from "./CenterList";
 import Pincode from "./Pincode";
-import { dateFormatter, dateReverser } from "../utility/dateGenerator";
+import { formatDate, reverseDate } from "../utility/dateGenerator";
 import "../styles/style.scss";
 import DatePicker from "./DatePicker";
 import Loader from "./reusableComponents/Loader";
 import CowinApi from "../api/CowinApi";
-
-const initialState = {
-  states: [],
-  districts: [],
-  centers: [],
-  errorMsg: "",
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "FETCH_STATES_SUCCESS":
-      return {
-        states: action.payload,
-        districts: [],
-        centers: [],
-        errorMsg: "",
-      };
-    case "FETCH_STATES_FAILURE":
-      return {
-        states: [],
-        districts: [],
-        centers: [],
-        errorMsg: "Error retrieving data",
-      };
-    case "FETCH_DISTRICTS_SUCCESS":
-      return {
-        ...state,
-        districts: action.payload,
-        centers: [],
-        errorMsg: "",
-      };
-    case "FETCH_DISTRICTS_FAILURE":
-      return {
-        ...state,
-        centers: [],
-        errorMsg: "Error retrieving data",
-      };
-    case "FETCH_CENTERS_SUCCESS":
-      return {
-        ...state,
-        centers: action.payload,
-        errorMsg: "",
-      };
-    case "FETCH_CENTERS_FAILURE":
-      return {
-        ...state,
-        centers: [],
-        errorMsg: "Error retrieving data",
-      };
-    case "FETCH_CENTERS_WITH_PINCODE_SUCCESS":
-      return {
-        ...state,
-        districts: [],
-        centers: action.payload,
-        errorMsg: "",
-      };
-    case "FETCH_CENTERS_WITH_PINCODE_FAILURE":
-      return {
-        ...state,
-        centers: [],
-        districts: [],
-        errorMsg: "Error retrieving data",
-      };
-    case "DATE_CHANGE": {
-      return {
-        ...state,
-        centers: [],
-      };
-    }
-    default:
-      return state;
-  }
-};
+import reducer from "../state/reducer";
+import initialState from "../state/initialState";
 
 const MainComponent = () => {
   const [selectedState, setSelectedState] = useState(-1);
   const [selectedDistrict, setSelectedDistrict] = useState(-1);
   const [pincode, setPincode] = useState("");
-  const [selectedDate, setSelectedDate] = useState(dateFormatter(new Date()));
+  const [selectedDate, setSelectedDate] = useState(formatDate(new Date()));
   const [loading, setLoading] = useState(true);
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -127,7 +56,7 @@ const MainComponent = () => {
 
   //   ON DISTRICT CHANGE, DATE CHANGE
   useEffect(() => {
-    const date = dateReverser(selectedDate);
+    const date = reverseDate(selectedDate);
     selectedDistrict !== -1 && setLoading(true);
     selectedDistrict !== -1 &&
       CowinApi.getCenters(selectedDistrict, date)
@@ -149,7 +78,7 @@ const MainComponent = () => {
     setSelectedState(-1);
     setSelectedDistrict(-1);
     setLoading(true);
-    const date = dateReverser(selectedDate);
+    const date = reverseDate(selectedDate);
     CowinApi.getCentersByPincode(pincode, date)
       .then((response) => {
         setLoading(false);
