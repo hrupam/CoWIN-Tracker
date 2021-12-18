@@ -1,4 +1,5 @@
 import React from "react";
+import formatCenterTime from "../utility/centerTimeFormatter";
 
 const Center = ({
   name,
@@ -15,6 +16,9 @@ const Center = ({
   vaccine,
   slots,
 }) => {
+  from_time = formatCenterTime(from_time);
+  to_time = formatCenterTime(to_time);
+
   return (
     <div
       className={`card ${
