@@ -74,7 +74,7 @@ const Center = ({
                 display: "block",
               }}
             >
-              {slot}
+              {slot.time} (Seats - {slot.seats})
             </span>
           ))}
         </p>
