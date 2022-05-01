@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/CoWIN-Tracker/static/css/main.9d26b678.chunk.css",
-    "main.js": "/CoWIN-Tracker/static/js/main.d04aa3da.chunk.js",
-    "main.js.map": "/CoWIN-Tracker/static/js/main.d04aa3da.chunk.js.map",
+    "main.js": "/CoWIN-Tracker/static/js/main.fd59f4ad.chunk.js",
+    "main.js.map": "/CoWIN-Tracker/static/js/main.fd59f4ad.chunk.js.map",
     "runtime-main.js": "/CoWIN-Tracker/static/js/runtime-main.7fe44107.js",
     "runtime-main.js.map": "/CoWIN-Tracker/static/js/runtime-main.7fe44107.js.map",
     "static/js/2.2b789571.chunk.js": "/CoWIN-Tracker/static/js/2.2b789571.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.7fe44107.js",
     "static/js/2.2b789571.chunk.js",
     "static/css/main.9d26b678.chunk.css",
-    "static/js/main.d04aa3da.chunk.js"
+    "static/js/main.fd59f4ad.chunk.js"
   ]
 }
