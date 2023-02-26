@@ -21,4 +21,6 @@ class CowinApi {
   }
 }
 
-export default new CowinApi();
+const cowinApi = new CowinApi();
+
+export default cowinApi;

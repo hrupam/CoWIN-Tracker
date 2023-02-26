@@ -89,3 +89,11 @@
     grid-template-rows: 510px 90px;
   }
 }
+
+.filters-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
