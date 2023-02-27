@@ -25,9 +25,7 @@ const CenterList = ({ centers }) => {
     const { name: vaccine, checked } = e.target;
 
     const modifiedVaccineFilters = vaccineFilters.map((vaccineFilter) => {
-      if (vaccineFilter.vaccine === vaccine) {
-        vaccineFilter.checked = checked;
-      }
+      if (vaccineFilter.vaccine === vaccine) vaccineFilter.checked = checked;
       return vaccineFilter;
     });
     setVaccineFilters(modifiedVaccineFilters);
@@ -38,22 +36,16 @@ const CenterList = ({ centers }) => {
 
     let falseCount = 0;
     vaccineFilters.forEach((vaccineFilter) => {
-      if (!vaccineFilter.checked) {
-        falseCount++;
-      }
+      if (!vaccineFilter.checked) falseCount++;
     });
-    if (falseCount === vaccineFilters.length) {
+    if (falseCount === vaccineFilters.length || falseCount === 0)
       return filterCenters;
-    }
 
     filterCenters = filterCenters.filter((center) => {
       let flag = false;
       vaccineFilters.forEach((vaccineFilter) => {
-        if (vaccineFilter.vaccine === center.vaccine) {
-          if (vaccineFilter.checked) {
-            flag = true;
-          }
-        }
+        if (vaccineFilter.vaccine === center.vaccine)
+          flag = vaccineFilter.checked;
       });
       return flag;
     });
